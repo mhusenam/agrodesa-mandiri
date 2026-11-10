@@ -1,4 +1,4 @@
-# Penjelasan Kode AgroDesa Mandiri (Bahan Demo ke Dosen)
+# Penjelasan Kode AgroDesa Mandiri 
 
 Dokumen ini menjelaskan kode **satu per satu**, urut dari `index.html`, `style.css`, lalu `script.js`. Di bagian akhir ada alur demo dan kemungkinan pertanyaan dosen.
 
