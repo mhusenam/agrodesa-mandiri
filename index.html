@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Cek jatah pupuk bersubsidi dan sewa alat pertanian untuk warga desa.">
+  <title>AgroDesa Mandiri | Layanan Pupuk Subsidi &amp; Sewa Alat Pertanian Desa</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#utama">Lompat ke konten</a>
+
+  <header class="site-header">
+    <div class="brand">
+      <img class="logo" alt="Logo AgroDesa Mandiri" src="media/logo.png">
+      <div>
+        <h1>AgroDesa Mandiri</h1>
+        <p>Pupuk subsidi &amp; sewa alat pertanian warga</p>
+      </div>
+    </div>
+    <nav aria-label="Navigasi utama">
+      <button class="nav-toggle" aria-expanded="false" aria-controls="menu">Menu</button>
+      <ul id="menu">
+        <li><a href="#beranda">Beranda</a></li>
+                <li><a href="#pupuk">Cek Jatah Pupuk</a></li>
+        <li><a href="#alsintan">Sewa Alat</a></li>
+        <li><a href="#sop">SOP &amp; Panduan</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="utama">
+    <section id="beranda" class="hero">
+      <div class="hero-text">
+        <h2>Pupuk subsidi dan alat tani, satu pintu untuk warga.</h2>
+        <p>Cek sisa jatah pupuk subsidi Anda dan ajukan peminjaman alat pertanian milik desa tanpa antre di balai desa.</p>
+        <p>
+        <a class="btn" href="#pupuk">Cek jatah pupuk</a>
+        <a class="btn btn-ghost" href="#alsintan">Sewa alat</a>
+       </p>
+      </div>
+      <figure class="hero-video">
+        <iframe
+          src="https://www.youtube.com/embed/Rve8gPXQbwU"
+          title="Dokumentasi panen raya dengan mesin pemanen modern"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+        <figcaption>Dokumentasi panen raya dengan mesin pemanen modern.</figcaption>
+      </figure>
+    </section>   <!-- jangan sampai hilang -->
+
+    <section id="pupuk">
+
+    <section id="pupuk">
+      <h2>Cek Jatah Pupuk Subsidi</h2>
+      <p class="lead">Khusus warga desa terdaftar. Masukkan 16 digit NIK Anda.</p>
+      <form id="formNik" novalidate>
+        <label for="nik">NIK (16 digit)
+          <input type="text" id="nik" name="nik" inputmode="numeric" maxlength="16" required>
+        </label>
+        <label for="poktan">Dusun
+          <select id="poktan" name="poktan">
+            <option>Wonogiri</option>
+            <option>Dlopo</option>
+            <option>Pejantran</option>
+           
+          </select>
+        </label>
+        <button class="btn" type="submit">Cek jatah</button>
+        <p class="pesan" id="pesanNik" role="status"></p>
+      </form>
+      <div id="hasilNik" hidden></div>
+
+      <h3>Alokasi Pupuk per Dusun (Musim Tanam Ini)</h3>
+      <div class="tabel-wrap">
+        <table>
+          <caption>Alokasi pupuk subsidi per dusun</caption>
+          <thead>
+            <tr><th scope="col">Dusun</th><th scope="col">Urea (kg)</th><th scope="col">NPK (kg)</th><th scope="col">Jumlah petani</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Wonogiri</th><td>4.500</td><td>3.000</td><td>42</td></tr>
+            <tr><th scope="row">Dlopo</th><td>3.200</td><td>2.400</td><td>35</td></tr>
+            <tr><th scope="row">Pejantran</th><td>2.800</td><td>1.800</td><td>28</td></tr>
+          </tbody>
+          <tfoot>
+            <tr><th scope="row">Total</th><td>10.500</td><td>7.200</td><td>105</td></tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+    <section id="alsintan">
+      <h2>Sewa Alat &amp; Mesin Pertanian</h2>
+      <p class="lead">Khusus warga desa terdaftar. Tarif masuk ke kas desa.</p>
+      <div class="katalog galeri">
+        <figure class="kartu"><img src="media/combine.png" alt="Ilustrasi combine harvester"><figcaption>Combine </figcaption></figure>
+        <figure class="kartu"><img src="media/traktor.png" alt="Ilustrasi traktor bajak sawah"><figcaption>Traktor bajak sawah</figcaption></figure>
+        <figure class="kartu"><img src="media/pompa.png" alt="Ilustrasi pompa air"><figcaption>Pompa air diesel</figcaption></figure>
+      </div>
+      <p><button class="btn btn-ghost" id="filterReady" aria-pressed="false">Tampilkan hanya yang Ready</button></p>
+      <div class="tabel-wrap">
+        <table id="tabelAlat">
+          <caption>Ketersediaan alat dan mesin pertanian</caption>
+          <thead>
+            <tr><th scope="col">Jenis mesin</th><th scope="col">Unit</th><th scope="col">Tarif per hari</th><th scope="col">Status</th></tr>
+          </thead>
+          <tbody>
+            <tr data-status="Ready"><th scope="row">Combine Harvester (mesin panen padi)</th><td>1</td><td>Rp750.000</td><td><span class="badge ready">Ready</span></td></tr>
+            <tr data-status="Dipinjam"><th scope="row">Traktor Bajak Sawah Roda 4</th><td>1</td><td>Rp350.000</td><td><span class="badge dipinjam">Dipinjam</span><br><small>Kembali ±2 hari lagi</small></td></tr>
+            <tr data-status="Ready"><th scope="row">Traktor Tangan (Hand Tractor)</th><td>3</td><td>Rp150.000</td><td><span class="badge ready">Ready</span></td></tr>
+            <tr data-status="Ready"><th scope="row">Mesin Perontok Padi (Power Thresher)</th><td>2</td><td>Rp100.000</td><td><span class="badge ready">Ready</span></td></tr>
+            <tr data-status="Dipinjam"><th scope="row">Rice Transplanter (mesin tanam padi)</th><td>1</td><td>Rp300.000</td><td><span class="badge dipinjam">Dipinjam</span><br><small>Kembali ±4 hari lagi</small></td></tr>
+            <tr data-status="Ready"><th scope="row">Pompa Air Diesel 3 Inch</th><td>2</td><td>Rp75.000</td><td><span class="badge ready">Ready</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Formulir Pengajuan Pinjam Alat</h3>
+      <form id="formAlat" novalidate>
+        <label for="nikAlat">NIK (16 digit)
+          <input type="text" id="nikAlat" inputmode="numeric" maxlength="16" required>
+        </label>
+        <label for="alat">Alat yang dipinjam
+          <select id="alat" required>
+            <option value="Combine Harvester (mesin panen padi)" data-status="Ready" data-tarif="750000">Combine Harvester (mesin panen padi) (Ready)</option>
+            <option value="Traktor Bajak Sawah Roda 4" data-status="Dipinjam" data-tarif="350000">Traktor Bajak Sawah Roda 4 (Dipinjam)</option>
+            <option value="Traktor Tangan (Hand Tractor)" data-status="Ready" data-tarif="150000">Traktor Tangan (Hand Tractor) (Ready)</option>
+            <option value="Mesin Perontok Padi (Power Thresher)" data-status="Ready" data-tarif="100000">Mesin Perontok Padi (Power Thresher) (Ready)</option>
+            <option value="Rice Transplanter (mesin tanam padi)" data-status="Dipinjam" data-tarif="300000">Rice Transplanter (mesin tanam padi) (Dipinjam)</option>
+            <option value="Pompa Air Diesel 3 Inch" data-status="Ready" data-tarif="75000">Pompa Air Diesel 3 Inch (Ready)</option>
+          </select>
+        </label>
+        <label for="tglPinjam">Tanggal pinjam
+          <input type="date" id="tglPinjam" required>
+        </label>
+        <label for="lama">Lama pinjam (hari)
+          <input type="number" id="lama" min="1" max="7" value="1" required>
+        </label>
+        <button class="btn" type="submit">Ajukan pinjaman</button>
+        <p class="pesan" id="pesanAlat" role="status"></p>
+      </form>
+    </section>
+
+    <section id="sop">
+      <h2>SOP &amp; Panduan</h2>
+      <div class="dua-kolom">
+        <article>
+          <h3>Alur pengajuan sewa alat</h3>
+          <ol>
+            <li>Cek status alat pada tabel ketersediaan.</li>
+            <li>Isi formulir pengajuan dengan NIK dan tanggal pinjam.</li>
+            <li>Tunggu konfirmasi dari pengurus Gapoktan.</li>
+            <li>Bayar tarif sewa ke kas desa saat mengambil alat.</li>
+            <li>Kembalikan alat tepat waktu dalam keadaan bersih.</li>
+          </ol>
+        </article>
+        <article>
+          <h3>Syarat pengambilan pupuk subsidi</h3>
+          <ul>
+            <li>KTP asli yang terdaftar di desa.</li>
+            <li>Surat keterangan dari kelompok tani.</li>
+            <li>Mengambil di balai tani pada jam layanan.</li>
+            <li>Jumlah sesuai kuota yang tertera pada cek jatah.</li>
+          </ul>
+          <h3>Aturan pemakaian combine harvester</h3>
+          <ul>
+            <li>Maksimal pemakaian 3 hari per pengajuan.</li>
+            <li>Biaya BBM dan operator ditanggung peminjam.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <address>
+      <strong>Balai Desa &amp;  AgroDesa Mandiri</strong><br>
+      Jl. Raya Desa No. 1, Kecamatan Pacet, Jawa Timur<br>
+      Telepon: <a href="tel:+628271281271">08271281271</a>
+    </address>
+    <p>Jam layanan: Senin–Jumat 08.00–15.00 WIB, Sabtu 08.00–12.00 WIB</p>
+    <p><small>&copy; 2026 AgroDesa Mandiri.</small></p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

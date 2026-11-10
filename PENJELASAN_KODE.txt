@@ -1,0 +1,633 @@
+# Penjelasan Kode AgroDesa Mandiri (Bahan Demo ke Dosen)
+
+Dokumen ini menjelaskan kode **satu per satu**, urut dari `index.html`, `style.css`, lalu `script.js`. Di bagian akhir ada alur demo dan kemungkinan pertanyaan dosen.
+
+**Gambaran besar tiga file:**
+
+| File | Peran | Analogi |
+|---|---|---|
+| `index.html` | Isi dan struktur halaman | Kerangka dan dinding rumah |
+| `style.css` | Tampilan (warna, tata letak) | Cat dan dekorasi |
+| `script.js` | Perilaku (validasi, filter, hitung) | Listrik dan saklar |
+
+---
+
+# BAGIAN A. `index.html`
+
+## A1. Deklarasi dokumen dan `<head>`
+
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="...">
+  <title>AgroDesa Mandiri | ...</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+```
+
+| Kode | Fungsi |
+|---|---|
+| `<!DOCTYPE html>` | Menyatakan dokumen memakai **HTML Living Standard** (versi HTML yang terus diperbarui oleh WHATWG). Ini jawaban untuk ketentuan soal nomor 2. |
+| `<html lang="id">` | Bahasa halaman adalah Indonesia. Berguna untuk pembaca layar (*screen reader*) dan mesin pencari. |
+| `meta charset="UTF-8"` | Encoding karakter, supaya simbol seperti `±`, `&`, dan `©` tampil benar. |
+| `meta viewport` | Membuat halaman **responsif** di HP. Tanpa ini HP akan menampilkan halaman versi desktop yang diperkecil. |
+| `meta description` | Ringkasan halaman untuk mesin pencari. |
+| `<title>` | Judul pada tab browser. |
+| `<link rel="stylesheet">` | Menghubungkan file CSS eksternal. |
+
+## A2. Skip link
+
+```html
+<a class="skip" href="#utama">Lompat ke konten</a>
+```
+
+Tautan **aksesibilitas**. Letaknya disembunyikan di luar layar dan baru muncul saat pengguna menekan tombol `Tab`. Pengguna keyboard dapat melompati menu dan langsung ke isi halaman (`id="utama"` pada `<main>`).
+
+## A3. `<header>` (kepala halaman)
+
+```html
+<header class="site-header">
+  <div class="brand">
+    <img class="logo" alt="Logo AgroDesa Mandiri" src="media/logo.png">
+    <div>
+      <h1>AgroDesa Mandiri</h1>
+      <p>Pupuk subsidi &amp; sewa alat pertanian warga</p>
+    </div>
+  </div>
+  <nav aria-label="Navigasi utama">
+    <button class="nav-toggle" aria-expanded="false" aria-controls="menu">Menu</button>
+    <ul id="menu">
+      <li><a href="#beranda">Beranda</a></li>
+      <li><a href="#pupuk">Cek Jatah Pupuk</a></li>
+      <li><a href="#alsintan">Sewa Alat</a></li>
+      <li><a href="#sop">SOP &amp; Panduan</a></li>
+    </ul>
+  </nav>
+</header>
+```
+
+- `<header>` adalah tag semantik untuk kepala situs, berisi identitas (logo, nama) dan navigasi.
+- `<img ... alt="...">` adalah **multimedia gambar**. Atribut `alt` wajib untuk aksesibilitas.
+- `<h1>` hanya **satu** pada halaman, yaitu nama situs.
+- `&amp;` adalah *entity* HTML untuk tanda `&`.
+- `<nav>` adalah tag semantik untuk blok navigasi utama. `aria-label` memberi nama bagi pembaca layar.
+- `<button class="nav-toggle">` adalah tombol menu untuk HP (disembunyikan di desktop lewat CSS).
+  - `aria-expanded="false"` menandakan menu sedang tertutup. Nilainya diubah oleh JavaScript.
+  - `aria-controls="menu"` menyatakan tombol ini mengendalikan elemen ber-id `menu`.
+- `<ul id="menu">` berisi daftar tautan. `href="#pupuk"` adalah **anchor internal**: klik akan melompat ke elemen ber-`id="pupuk"`. Inilah "menu navigasi yang berfungsi" (soal nomor 4).
+
+## A4. `<main>` dan section Beranda
+
+```html
+<main id="utama">
+  <section id="beranda" class="hero">
+    <div class="hero-text">
+      <h2>Pupuk subsidi dan alat tani, satu pintu untuk warga.</h2>
+      <p>Cek sisa jatah pupuk ...</p>
+      <p>
+        <a class="btn" href="#pupuk">Cek jatah pupuk</a>
+        <a class="btn btn-ghost" href="#alsintan">Sewa alat</a>
+      </p>
+    </div>
+    <figure class="hero-video">
+      <iframe src="https://www.youtube.com/embed/Rve8gPXQbwU" title="..." loading="lazy"
+        referrerpolicy="strict-origin-when-cross-origin" allow="..." allowfullscreen></iframe>
+      <figcaption>Dokumentasi panen raya dengan mesin pemanen modern.</figcaption>
+    </figure>
+  </section>
+```
+
+- `<main>` berisi konten utama dan hanya boleh ada **satu** per halaman.
+- `<section>` adalah kelompok konten bertema. Setiap section punya `id` untuk target navigasi.
+- Tombol "Cek jatah pupuk" dan "Sewa alat" sebenarnya tautan `<a>` yang diberi gaya tombol (`class="btn"`).
+- `<figure>` dan `<figcaption>` adalah pasangan semantik untuk media beserta keterangannya.
+- `<iframe>` menyematkan video YouTube. Atribut penting:
+  - `src` memakai alamat `/embed/ID_VIDEO`.
+  - `title` untuk aksesibilitas.
+  - `loading="lazy"` menunda pemuatan sampai terlihat, sehingga halaman lebih ringan.
+  - `referrerpolicy` mengatur informasi asal halaman yang dikirim ke YouTube, supaya pemutaran sematan tidak ditolak.
+  - `allowfullscreen` mengizinkan layar penuh.
+  - Ini adalah **multimedia video** (soal nomor 5).
+
+## A5. Section Cek Jatah Pupuk
+
+```html
+<section id="pupuk">
+  <h2>Cek Jatah Pupuk Subsidi</h2>
+  <p class="lead">Khusus warga desa terdaftar. Masukkan 16 digit NIK Anda.</p>
+  <form id="formNik" novalidate>
+    <label for="nik">NIK (16 digit)
+      <input type="text" id="nik" name="nik" inputmode="numeric" maxlength="16" required>
+    </label>
+    <label for="poktan">Dusun
+      <select id="poktan" name="poktan">
+        <option>Wonogiri</option> <option>Dlopo</option> <option>Pejantran</option>
+      </select>
+    </label>
+    <button class="btn" type="submit">Cek jatah</button>
+    <p class="pesan" id="pesanNik" role="status"></p>
+  </form>
+  <div id="hasilNik" hidden></div>
+```
+
+**Formulir (soal nomor 5):**
+
+| Atribut | Penjelasan |
+|---|---|
+| `<form id="formNik">` | Pembungkus formulir. Id dipakai JavaScript untuk menangkap event `submit`. |
+| `novalidate` | Mematikan validasi bawaan browser, karena validasi dilakukan sendiri oleh JavaScript (pesan error lebih rapi dan berbahasa Indonesia). |
+| `<label for="nik">` | Label terhubung ke input ber-`id="nik"`. Klik pada label akan memfokuskan input, dan pembaca layar membacakannya. |
+| `type="text"` + `inputmode="numeric"` | Di HP muncul keyboard angka. Memakai `text` (bukan `number`) karena NIK adalah kode, bukan nilai yang dihitung, dan agar tidak muncul tombol naik-turun. |
+| `maxlength="16"` | Mencegah mengetik lebih dari 16 karakter. |
+| `required` | Menandai wajib diisi. |
+| `<select>` + `<option>` | Daftar pilihan (dropdown) dusun. |
+| `type="submit"` | Tombol pengirim formulir. |
+| `role="status"` pada `<p id="pesanNik">` | Pembaca layar otomatis membacakan pesan yang muncul. |
+| `<div id="hasilNik" hidden>` | Wadah hasil, awalnya **tersembunyi** (`hidden`). JavaScript yang menampilkannya. |
+
+**Tabel alokasi pupuk (soal nomor 5):**
+
+```html
+<table>
+  <caption>Alokasi pupuk subsidi per dusun</caption>
+  <thead><tr><th scope="col">Dusun</th> ... </tr></thead>
+  <tbody><tr><th scope="row">Wonogiri</th><td>4.500</td> ... </tr> ...</tbody>
+  <tfoot><tr><th scope="row">Total</th> ... </tr></tfoot>
+</table>
+```
+
+- `<caption>` adalah judul tabel.
+- `<thead>`, `<tbody>`, `<tfoot>` memisahkan kepala, isi, dan ringkasan tabel secara semantik.
+- `<tr>` adalah baris, `<th>` sel judul, dan `<td>` sel data.
+- `scope="col"` dan `scope="row"` memberi tahu pembaca layar apakah sebuah judul berlaku untuk kolom atau baris.
+- Total: Urea 4.500 + 3.200 + 2.800 = 10.500. NPK 3.000 + 2.400 + 1.800 = 7.200. Petani 42 + 35 + 28 = 105.
+
+## A6. Section Sewa Alat
+
+**Galeri gambar:**
+
+```html
+<div class="katalog galeri">
+  <figure class="kartu"><img src="media/combine.png" alt="..."><figcaption>Combine</figcaption></figure>
+  ...
+</div>
+```
+
+Tiga `<figure>` berisi gambar alat. Class `katalog` membuatnya menjadi grid (diatur di CSS).
+
+**Tombol filter:**
+
+```html
+<button class="btn btn-ghost" id="filterReady" aria-pressed="false">Tampilkan hanya yang Ready</button>
+```
+
+`aria-pressed` adalah atribut aksesibilitas untuk tombol *toggle* (menyala atau mati). JavaScript mengubah nilainya, dan CSS memakainya untuk mewarnai tombol saat aktif.
+
+**Tabel alat:**
+
+```html
+<tr data-status="Ready">
+  <th scope="row">Combine Harvester (mesin panen padi)</th>
+  <td>1</td><td>Rp750.000</td>
+  <td><span class="badge ready">Ready</span></td>
+</tr>
+```
+
+- `data-status="Ready"` adalah **atribut data khusus** (`data-*`). Fungsinya menyimpan informasi untuk JavaScript tanpa mengganggu tampilan. JavaScript membacanya lewat `tr.dataset.status`.
+- `<span class="badge ready">` adalah lencana status berwarna hijau. Alat yang dipinjam memakai `badge dipinjam` (merah).
+- `<small>` dipakai untuk keterangan kecil "Kembali ±2 hari lagi".
+
+**Formulir pinjam alat:**
+
+```html
+<option value="Combine Harvester (mesin panen padi)" data-status="Ready" data-tarif="750000">...</option>
+<input type="date" id="tglPinjam" required>
+<input type="number" id="lama" min="1" max="7" value="1" required>
+```
+
+- Tiap `<option>` menyimpan `data-status` dan `data-tarif` (tarif per hari tanpa titik, agar bisa dikalikan).
+- `type="date"` menampilkan pemilih tanggal bawaan browser.
+- `type="number"` dengan `min="1"` dan `max="7"` membatasi lama pinjam 1 sampai 7 hari. Di sini `number` cocok karena nilainya dihitung.
+
+## A7. Section SOP dan Panduan (soal nomor 5: daftar list)
+
+```html
+<div class="dua-kolom">
+  <article>
+    <h3>Alur pengajuan sewa alat</h3>
+    <ol> <li>...</li> ... </ol>
+  </article>
+  <article>
+    <h3>Syarat pengambilan pupuk subsidi</h3>
+    <ul> <li>...</li> </ul>
+    <h3>Aturan pemakaian combine harvester</h3>
+    <ul> ... </ul>
+  </article>
+</div>
+```
+
+- `<ol>` (*ordered list*) dipakai karena **urutan penting** (langkah 1, 2, 3).
+- `<ul>` (*unordered list*) dipakai untuk poin yang tidak berurutan.
+- `<article>` adalah blok konten yang berdiri sendiri.
+
+## A8. `<footer>` dan pemanggilan script
+
+```html
+<footer class="site-footer">
+  <address> <strong>Balai Desa ...</strong><br> Jl. Raya Desa No. 1 ... Telepon: <a href="tel:...">...</a> </address>
+  <p>Jam layanan: ...</p>
+  <p><small>&copy; 2026 AgroDesa Mandiri.</small></p>
+</footer>
+<script src="script.js"></script>
+```
+
+- `<address>` adalah tag semantik untuk informasi kontak.
+- `href="tel:..."` membuat nomor dapat diketuk untuk menelepon di HP.
+- `&copy;` menghasilkan simbol ©.
+- `<script>` diletakkan di **akhir `<body>`** agar seluruh elemen HTML sudah ada saat JavaScript berjalan. Jika di atas, `document.getElementById(...)` akan menghasilkan `null`.
+
+---
+
+# BAGIAN B. `style.css`
+
+## B1. Variabel warna (`:root`)
+
+```css
+:root{
+  --tanah:#2d3a1f; --padi:#c9a227; --jerami:#f3ecd2; --daun:#4f7a2b;
+  --kertas:#fbf8ee; --teks:#1f2616; --merah:#a8321f; --abu:#6b6f63;
+}
+```
+
+*CSS custom properties* (variabel). Warna ditulis sekali, lalu dipakai lewat `var(--daun)`. Mengganti tema cukup mengubah di satu tempat. Nama warna bertema pertanian: tanah, padi, jerami, daun.
+
+## B2. Reset dan dasar
+
+| Kode | Fungsi |
+|---|---|
+| `*{box-sizing:border-box}` | Lebar elemen sudah termasuk padding dan border, sehingga hitungan tata letak lebih mudah. |
+| `html{scroll-behavior:smooth; scroll-padding-top:5rem}` | Klik menu menggulir dengan halus. `scroll-padding-top` memberi jarak agar judul section tidak tertutup header yang menempel. |
+| `body{font-family:Georgia...; background; color; line-height:1.65}` | Font isi, warna dasar, dan jarak antarbaris agar nyaman dibaca. |
+| `h1,h2,h3,nav,.btn,th,label,.badge{font-family:"Trebuchet MS"...}` | Judul dan elemen antarmuka memakai font sans-serif, isi memakai serif. |
+| `:focus-visible{outline:...}` | Garis penanda saat elemen difokus keyboard (aksesibilitas). |
+| `.skip` dan `.skip:focus` | Skip link disembunyikan di luar layar (`left:-999px`), muncul saat difokus. |
+
+## B3. Header dan navigasi (**Flexbox**)
+
+```css
+.site-header{position:sticky;top:0;z-index:10;display:flex;flex-wrap:wrap;
+  align-items:center;justify-content:space-between;gap:1rem;padding:.75rem 5vw;
+  background:var(--tanah);color:var(--jerami)}
+```
+
+- `position:sticky; top:0` membuat header **menempel di atas** saat halaman digulir.
+- `z-index:10` membuat header berada di atas konten lain.
+- `display:flex` menyusun logo di kiri dan menu di kanan sejajar.
+- `justify-content:space-between` mendorong logo ke kiri dan menu ke kanan.
+- `flex-wrap:wrap` membuat isi turun ke baris baru jika layar sempit.
+- `nav ul{display:flex; list-style:none}` membuat daftar menu menjadi horizontal tanpa titik.
+- `nav a:hover, nav a.aktif` memberi latar kuning pada menu yang disorot atau sedang aktif (kelas `aktif` ditambahkan oleh JavaScript).
+- `.nav-toggle{display:none}` menyembunyikan tombol menu di desktop.
+
+## B4. Konten utama
+
+```css
+main{max-width:1080px;margin:0 auto;padding:0 5vw}
+section{padding:3rem 0;border-bottom:1px solid #e0d9bd}
+```
+
+- `max-width:1080px; margin:0 auto` membatasi lebar konten dan memusatkannya.
+- `5vw` adalah 5% lebar layar, sehingga pinggir menyesuaikan ukuran layar.
+- Setiap `section` diberi jarak atas-bawah dan garis pemisah tipis.
+
+## B5. Hero (**CSS Grid**)
+
+```css
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:2.5rem;align-items:center}
+.hero h2{font-size:clamp(2rem,4.5vw,3rem)}
+.hero-video iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:8px}
+```
+
+- `display:grid` dengan `1.1fr 1fr` membagi dua kolom (teks dan video) dengan perbandingan hampir sama. `fr` adalah satuan pecahan ruang.
+- `clamp(2rem, 4.5vw, 3rem)` membuat ukuran judul fleksibel dengan batas minimum 2rem dan maksimum 3rem.
+- `aspect-ratio:16/9` menjaga video tetap proporsional di berbagai lebar.
+
+## B6. Tombol
+
+```css
+.btn{display:inline-block;background:var(--tanah);color:var(--jerami);border:2px solid ...;padding:...;border-radius:4px}
+.btn:hover{background:var(--daun)}
+.btn-ghost{background:transparent;color:var(--tanah)}
+.btn[aria-pressed="true"]{background:var(--padi);...}
+```
+
+- Satu kelas `.btn` dipakai untuk `<a>` maupun `<button>`.
+- `.btn-ghost` adalah varian tombol berlatar transparan (tombol sekunder).
+- **Selector atribut** `.btn[aria-pressed="true"]` membuat tombol filter berubah warna **otomatis** saat JavaScript menyetel `aria-pressed` menjadi `true`. Jadi CSS mengikuti status aksesibilitas, tanpa perlu menambah kelas khusus.
+
+## B7. Galeri (**Grid responsif**)
+
+```css
+.katalog{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.25rem}
+.kartu img{width:100%;height:140px;object-fit:cover;display:block}
+```
+
+- `repeat(auto-fill, minmax(230px, 1fr))` berarti jumlah kolom menyesuaikan lebar layar. Setiap kolom minimal 230px, dan sisanya dibagi rata. Tanpa media query pun galeri sudah responsif.
+- `object-fit:cover` membuat gambar mengisi kotak tanpa gepeng (bagian lebih dipotong).
+
+## B8. Formulir
+
+| Kode | Fungsi |
+|---|---|
+| `form{background:#fff; border; padding; max-width:620px}` | Tampilan kartu putih dengan lebar terbatas. |
+| `label{display:block}` | Label berada di atas input. |
+| `input[...], select, textarea{width:100%; padding; border; font:inherit}` | Semua kolom isian seragam: selebar kartu, dengan font mengikuti halaman. |
+| `input.salah{border-color:merah; background:#fdeeea}` | Kelas `salah` ditambahkan JavaScript saat input tidak valid, sehingga kolom berwarna merah. |
+| `.pesan.ok` dan `.pesan.err` | Pesan hijau untuk sukses dan merah untuk gagal. |
+| `.hasil{border-left:6px solid var(--padi)}` | Kartu hasil cek pupuk dengan garis kuning di kiri. |
+
+## B9. Tabel
+
+```css
+.tabel-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:480px}
+thead th{background:var(--tanah);color:var(--jerami)}
+tbody tr:nth-child(even){background:#faf6e6}
+tr[hidden]{display:none}
+```
+
+- `.tabel-wrap{overflow-x:auto}` membuat tabel dapat digeser ke samping di HP, tanpa merusak tata letak halaman.
+- `border-collapse:collapse` menggabungkan garis sel agar rapi.
+- `:nth-child(even)` membuat baris genap berwarna selang-seling (*zebra striping*), sehingga mudah dibaca.
+- `tr[hidden]{display:none}` memastikan baris yang diberi atribut `hidden` oleh filter benar-benar hilang.
+
+## B10. Badge status
+
+```css
+.badge{display:inline-block;padding:.15rem .7rem;border-radius:99px;...}
+.ready{background:#dcefc9;color:#2f5a14}      /* hijau */
+.dipinjam{background:#f6d6cf;color:var(--merah)} /* merah */
+```
+
+`border-radius:99px` membuat bentuk kapsul. Warna hijau dan merah membedakan status secara cepat.
+
+## B11. Bagian SOP dan footer
+
+```css
+.dua-kolom{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+.site-footer{background:var(--tanah);color:var(--jerami);padding:2rem 5vw;text-align:center}
+address{font-style:normal}
+```
+
+`address` secara bawaan dicetak miring, sehingga `font-style:normal` mengembalikannya ke tegak.
+
+## B12. Responsif (**media query**)
+
+```css
+@media (max-width:760px){
+  .hero,.dua-kolom{grid-template-columns:1fr}   /* 2 kolom jadi 1 kolom */
+  .nav-toggle{display:block}                     /* tombol Menu muncul */
+  nav ul{display:none;flex-direction:column;width:100%}   /* menu tersembunyi */
+  nav ul.buka{display:flex}                      /* menu tampil jika ada kelas "buka" */
+}
+```
+
+Pada layar 760px ke bawah (HP): grid dua kolom berubah menjadi satu kolom, menu horizontal berubah menjadi tombol "Menu" yang membuka daftar vertikal. Kelas `buka` ditambahkan atau dihapus oleh JavaScript.
+
+```css
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+```
+
+Menghormati pengguna yang mematikan animasi di sistemnya, sehingga smooth scroll dinonaktifkan.
+
+---
+
+# BAGIAN C. `script.js`
+
+## C1. Mode ketat dan data simulasi
+
+```js
+"use strict";
+
+const dataWarga = {
+  "3515010000000001": { nama: "Pak Sukardi", dusun: "...", urea: 150, npk: 100 },
+  "3515010000000002": { nama: "Bu Sri Wahyuni", dusun: "...", urea: 50, npk: 0 }
+};
+```
+
+- `"use strict"` mengaktifkan mode ketat: kesalahan seperti memakai variabel yang belum dideklarasikan akan memunculkan error, bukan diam-diam lolos.
+- `dataWarga` adalah **objek** yang kuncinya NIK. Ini menggantikan database karena proyek hanya frontend. Mencari warga cukup dengan `dataWarga[nik]`, dan hasilnya `undefined` jika NIK tidak ada.
+
+## C2. Fungsi bantu (*helper*)
+
+```js
+const $ = id => document.getElementById(id);
+const rupiah = n => "Rp" + n.toLocaleString("id-ID");
+const tampilPesan = (el, teks, ok) => { el.textContent = teks; el.className = "pesan " + (ok ? "ok" : "err"); };
+const tandai = (input, salah) => input.classList.toggle("salah", salah);
+```
+
+| Fungsi | Cara kerja |
+|---|---|
+| `$("nik")` | Singkatan `getElementById`, supaya kode lebih pendek. Ditulis sebagai *arrow function*. |
+| `rupiah(750000)` | `toLocaleString("id-ID")` memformat angka dengan titik ribuan, hasilnya `Rp750.000`. |
+| `tampilPesan(el, teks, ok)` | Mengisi teks pesan dan memilih kelas `ok` (hijau) atau `err` (merah) lewat operator ternary `? :`. |
+| `tandai(input, salah)` | `classList.toggle("salah", true/false)` menambah atau melepas kelas `salah` sesuai nilai kedua. |
+
+## C3. Navigasi: tombol menu HP
+
+```js
+const toggle = document.querySelector(".nav-toggle");
+const menu = $("menu");
+toggle.addEventListener("click", () => {
+  toggle.setAttribute("aria-expanded", menu.classList.toggle("buka"));
+});
+menu.addEventListener("click", e => {
+  if (e.target.tagName === "A") { menu.classList.remove("buka"); toggle.setAttribute("aria-expanded", false); }
+});
+```
+
+1. Saat tombol Menu diklik, `classList.toggle("buka")` menambah kelas `buka` jika belum ada (menu tampil) atau melepasnya jika sudah ada (menu tertutup).
+2. `toggle()` mengembalikan `true` atau `false`. Nilai itu langsung dipakai untuk memperbarui `aria-expanded`, sehingga pembaca layar tahu status menu.
+3. Saat salah satu tautan menu diklik, menu ditutup otomatis. Teknik ini memakai **event delegation**: satu *listener* di `<ul>`, lalu `e.target` dipakai untuk mengetahui elemen mana yang diklik.
+
+## C4. Navigasi: penanda menu aktif (*scrollspy*)
+
+```js
+const tautan = [...menu.querySelectorAll("a")];
+if ("IntersectionObserver" in window) {
+  const pengamat = new IntersectionObserver(entri => {
+    entri.forEach(en => {
+      if (en.isIntersecting) tautan.forEach(a => a.classList.toggle("aktif", a.getAttribute("href") === "#" + en.target.id));
+    });
+  }, { rootMargin: "-40% 0px -55% 0px" });
+  document.querySelectorAll("main section").forEach(s => pengamat.observe(s));
+}
+```
+
+- Tujuannya: menu yang sesuai dengan bagian yang sedang terlihat otomatis berwarna kuning.
+- `IntersectionObserver` adalah API browser yang memberi tahu **kapan sebuah elemen masuk ke area pandang**. Ini lebih ringan dibanding mendengarkan event `scroll` terus-menerus.
+- `rootMargin: "-40% 0px -55% 0px"` mempersempit area pengamatan menjadi pita tipis di sekitar tengah layar, sehingga hanya satu section yang dianggap "sedang dibaca".
+- Saat sebuah section masuk pita itu, semua tautan diperiksa: tautan yang `href`-nya sama dengan `#id-section` mendapat kelas `aktif`, yang lain dilepas.
+- `if ("IntersectionObserver" in window)` adalah pengecekan dukungan browser, supaya tidak error di browser lama.
+- `[...menu.querySelectorAll("a")]` mengubah hasil pencarian (NodeList) menjadi array biasa dengan *spread operator*.
+
+## C5. Cek jatah pupuk (validasi NIK)
+
+```js
+$("formNik").addEventListener("submit", e => {
+  e.preventDefault();
+  const nik = $("nik"), msg = $("pesanNik"), box = $("hasilNik"), v = nik.value.trim();
+  box.hidden = true;
+  if (!/^\d{16}$/.test(v)) { tandai(nik, true); return tampilPesan(msg, `NIK harus 16 digit angka (Anda mengisi ${v.length} karakter).`, false); }
+  const w = dataWarga[v];
+  if (!w) { tandai(nik, true); return tampilPesan(msg, "NIK tidak terdaftar. ...", false); }
+  tandai(nik, false);
+  tampilPesan(msg, "NIK terdaftar.", true);
+  box.innerHTML = `<h3>${w.nama}</h3> ... Jatah Urea: <strong>${w.urea} kg</strong> ...`;
+  box.className = "hasil";
+  box.hidden = false;
+});
+```
+
+Alur berurutan:
+
+1. **`e.preventDefault()`**: mencegah browser mengirim formulir dan memuat ulang halaman. Kita menangani sendiri.
+2. **`nik.value.trim()`**: mengambil isi input dan membuang spasi di awal atau akhir.
+3. **`box.hidden = true`**: menyembunyikan hasil sebelumnya setiap kali pengecekan baru dimulai.
+4. **Validasi format dengan regex `/^\d{16}$/`:**
+   - `^` awal teks, `$` akhir teks
+   - `\d` satu digit angka
+   - `{16}` tepat 16 kali
+   - Artinya teks harus **seluruhnya** 16 angka. Jika tidak, input ditandai merah, pesan error muncul, lalu `return` menghentikan fungsi (*early return*, sehingga kode di bawahnya tidak dijalankan).
+5. **Pencarian data:** `dataWarga[v]`. Jika `undefined` (`!w`), berarti NIK tidak terdaftar.
+6. **Berhasil:** tanda merah dilepas, pesan hijau tampil, lalu hasil dibangun dengan **template literal** (tanda `` ` `` dan `${...}`) yang menyisipkan nama dan jatah. Jika NPK = 0 ditambahkan teks "(kuota habis)" dengan operator ternary.
+7. `box.hidden = false` menampilkan kartu hasil.
+
+## C6. Filter tabel alat
+
+```js
+let hanyaReady = false;
+$("filterReady").addEventListener("click", e => {
+  hanyaReady = !hanyaReady;
+  e.target.setAttribute("aria-pressed", hanyaReady);
+  e.target.textContent = hanyaReady ? "Tampilkan semua alat" : "Tampilkan hanya yang Ready";
+  document.querySelectorAll("#tabelAlat tbody tr").forEach(tr => {
+    tr.hidden = hanyaReady && tr.dataset.status !== "Ready";
+  });
+});
+```
+
+- `hanyaReady` adalah variabel **status** (*state*) yang bernilai `true` atau `false`. `!hanyaReady` membaliknya setiap klik.
+- `aria-pressed` diperbarui, sehingga CSS `.btn[aria-pressed="true"]` ikut mewarnai tombol.
+- Teks tombol berganti sesuai status.
+- Setiap baris tabel diperiksa: baris disembunyikan (`hidden = true`) jika filter aktif **dan** statusnya bukan "Ready". `tr.dataset.status` membaca atribut `data-status` dari HTML.
+
+## C7. Batas tanggal pinjam
+
+```js
+$("tglPinjam").min = new Date().toISOString().split("T")[0];
+```
+
+`new Date()` adalah waktu sekarang, `toISOString()` menghasilkan teks seperti `2026-11-10T07:00:00Z`, dan `.split("T")[0]` mengambil bagian tanggalnya saja. Hasilnya dipasang sebagai atribut `min`, sehingga pemilih tanggal tidak mengizinkan tanggal yang sudah lewat.
+
+## C8. Formulir pengajuan pinjam alat
+
+```js
+$("formAlat").addEventListener("submit", e => {
+  e.preventDefault();
+  const nik = $("nikAlat"), tgl = $("tglPinjam"), msg = $("pesanAlat"), v = nik.value.trim();
+  const opt = $("alat").selectedOptions[0];
+  tandai(tgl, false);
+  if (!/^\d{16}$/.test(v)) {...}
+  if (!dataWarga[v]) {...}
+  tandai(nik, false);
+  if (!tgl.value) { tandai(tgl, true); return tampilPesan(msg, "Pilih tanggal pinjam.", false); }
+  if (opt.dataset.status !== "Ready") return tampilPesan(msg, `... sedang dipinjam. Pilih alat berstatus Ready.`, false);
+  const hari = Number($("lama").value) || 1;
+  tampilPesan(msg, `Pengajuan ${dataWarga[v].nama} untuk ${$("alat").value} selama ${hari} hari (${rupiah(Number(opt.dataset.tarif) * hari)}) sudah diterima. ...`, true);
+});
+```
+
+Pemeriksaan dilakukan **berlapis** dari yang paling dasar. Setiap lapis yang gagal langsung `return`:
+
+| Urutan | Pemeriksaan | Jika gagal |
+|---|---|---|
+| 1 | NIK harus 16 digit angka (regex) | Pesan format NIK |
+| 2 | NIK harus ada di `dataWarga` | Pesan NIK tidak terdaftar |
+| 3 | Tanggal harus diisi | Pesan pilih tanggal |
+| 4 | Alat harus berstatus Ready | Pesan alat sedang dipinjam |
+| 5 | Semua lolos | Pesan sukses beserta biaya |
+
+- `$("alat").selectedOptions[0]` mengambil `<option>` yang sedang dipilih, sehingga atribut `data-status` dan `data-tarif`-nya bisa dibaca.
+- **Perhitungan biaya:** `Number(opt.dataset.tarif) * hari`. Nilai dari atribut `data-*` selalu berupa teks, sehingga harus diubah menjadi angka dengan `Number()` sebelum dikalikan. Contoh: Combine Rp750.000 × 3 hari = Rp2.250.000.
+- `Number($("lama").value) || 1` memakai nilai 1 jika isian kosong atau bukan angka.
+
+---
+
+# BAGIAN D. Alur Demo ke Dosen (±5 menit)
+
+| Menit | Yang ditunjukkan | Yang diucapkan |
+|---|---|---|
+| 0:00 | Buka `index.html` lewat Live Server | "Ini AgroDesa Mandiri, website layanan pupuk subsidi dan sewa alat pertanian desa. Masalahnya: warga harus datang ke balai desa hanya untuk menanyakan jatah dan status alat." |
+| 0:30 | Header, klik tiap menu | "Header memakai `<header>` dan `<nav>`. Menu memakai anchor dan smooth scroll, dan menu aktif berubah otomatis saat di-scroll (`IntersectionObserver`)." |
+| 1:00 | Video hero | "Multimedia: video YouTube tersemat dengan `<iframe>`." |
+| 1:30 | Cek pupuk: isi `123` lalu NIK valid `3515010000000001` | "Validasi memakai regex 16 digit. Data dicari dari objek `dataWarga` sebagai pengganti database." |
+| 2:30 | Tabel alokasi pupuk | "Tabel semantik: `caption`, `thead`, `tbody`, `tfoot`, dan `scope`." |
+| 3:00 | Sewa alat: klik filter Ready | "Baris disembunyikan JavaScript berdasarkan atribut `data-status`." |
+| 3:30 | Ajukan Traktor Bajak (Dipinjam) lalu Combine | "Alat berstatus Dipinjam ditolak. Alat Ready dihitung biayanya otomatis: tarif × hari." |
+| 4:15 | SOP: list `ol` dan `ul` | "Daftar berurutan untuk alur, daftar poin untuk syarat." |
+| 4:30 | Perkecil jendela browser | "Responsif: grid jadi satu kolom, menu menjadi tombol (media query)." |
+| 5:00 | Buka DevTools lalu Elements | Tunjukkan struktur semantik. |
+
+---
+
+# BAGIAN E. Kemungkinan Pertanyaan Dosen
+
+**1. Apa itu HTML Living Standard, dan mana buktinya di kode?**
+Standar HTML yang terus diperbarui oleh WHATWG, tidak lagi memakai nomor versi. Buktinya: `<!DOCTYPE html>` dan penggunaan elemen semantik modern.
+
+**2. Apa bedanya `<div>` dengan `<section>` atau `<article>`?**
+`<div>` tidak punya makna. `<section>` dan `<article>` memberi makna struktur kepada browser, pembaca layar, dan mesin pencari. Kodenya lebih mudah dibaca dan lebih ramah aksesibilitas.
+
+**3. Kenapa `<script>` di akhir `<body>`?**
+Supaya semua elemen sudah dimuat sebelum JavaScript mencarinya. Jika di atas, `getElementById` mengembalikan `null` dan terjadi error.
+
+**4. Kenapa NIK memakai `type="text"`, bukan `type="number"`?**
+NIK adalah kode identitas, bukan angka yang dihitung. `number` bisa menghilangkan angka nol di depan, menampilkan tombol naik-turun, dan `maxlength` tidak berlaku padanya. `inputmode="numeric"` tetap memunculkan keyboard angka di HP.
+
+**5. Kenapa memakai `novalidate` pada form?**
+Validasi bawaan browser dimatikan karena validasi dilakukan sendiri lewat JavaScript, agar pesan dan tampilan error konsisten.
+
+**6. Apa fungsi `e.preventDefault()`?**
+Mencegah perilaku bawaan formulir (mengirim dan memuat ulang halaman), sehingga validasi dan hasil bisa ditampilkan tanpa pindah halaman.
+
+**7. Apa itu `data-*` dan kenapa dipakai?**
+Atribut khusus untuk menyimpan data di elemen HTML (`data-status`, `data-tarif`). JavaScript membacanya lewat `dataset`. Dengan cara ini data tidak perlu ditulis ulang di JavaScript.
+
+**8. Apa beda Flexbox dan Grid di proyek ini?**
+Flexbox dipakai untuk susunan **satu dimensi** (header, menu). Grid dipakai untuk susunan **dua dimensi** (hero dua kolom, galeri kartu, SOP dua kolom).
+
+**9. Bagaimana website ini dibuat responsif?**
+Tiga cara: `meta viewport`, grid `auto-fill/minmax` yang menyesuaikan jumlah kolom, dan `@media (max-width:760px)` yang mengubah dua kolom menjadi satu serta menu menjadi tombol.
+
+**10. Datanya disimpan di mana?**
+Di objek JavaScript (`dataWarga`) sebagai simulasi, karena proyek ini hanya frontend. Untuk produksi dibutuhkan backend dan database, dan data akan diambil lewat `fetch()` ke API.
+
+**11. Apakah aman menyimpan NIK di JavaScript?**
+Tidak. Data di sisi klien bisa dilihat siapa saja lewat DevTools. Di sini hanya untuk simulasi dengan NIK contoh. Pada sistem nyata, pencocokan NIK harus dilakukan di server.
+
+**12. Apa itu aksesibilitas, dan apa penerapannya?**
+Membuat website dapat dipakai semua orang, termasuk pengguna pembaca layar dan keyboard: `alt` pada gambar, `label` terhubung ke input, `aria-expanded` dan `aria-pressed`, `scope` pada tabel, skip link, `:focus-visible`, dan `role="status"` untuk pesan.
+
+**13. Apa fungsi `rem`, `vw`, `fr`, dan `clamp()`?**
+`rem` relatif terhadap ukuran font dasar, `vw` adalah persen lebar layar, `fr` adalah pecahan ruang pada grid, dan `clamp(min, ideal, max)` membuat ukuran fleksibel dengan batas bawah dan atas.
+
+**14. Apa fungsi `IntersectionObserver`, dan kenapa tidak memakai event `scroll`?**
+Untuk mendeteksi elemen yang masuk area pandang. Browser yang mengatur pemantauannya, sehingga lebih hemat performa dibanding menjalankan fungsi pada setiap pergeseran scroll.
+
+**15. Bagaimana pengembangan selanjutnya?**
+Backend dan database (Node.js atau Laravel), login warga, riwayat peminjaman, pengecekan bentrok jadwal, notifikasi WhatsApp, dan panel admin untuk Gapoktan.
