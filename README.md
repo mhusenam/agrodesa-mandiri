@@ -130,7 +130,9 @@ Karena tidak memakai database, data warga disimulasikan di `script.js` (objek `d
 
 ## 9. Pembuat
 
-- Nama: _(isi nama)_
-- NIM: _(isi NIM)_
-- Mata kuliah: Pemrograman Web Frontend
+- Nama:- Muhammad Husein Abdullah Mahfud(251080200078)
+       - Dodi Imanul Ardi(251080200104)
+       - Bilqisti Marnina Rahma (251080200085)
+
+- Mata kuliah: Pemrograman Web (Frontend)
 - Tahun: 2026
