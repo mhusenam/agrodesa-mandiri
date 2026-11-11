@@ -2,8 +2,8 @@
 
 /* Data simulasi warga (tanpa backend) */
 const dataWarga = {
-  "3515010000000001": { nama: "Pak Sukardi", dusun: "Wonogiri", urea: 150, npk: 100 },
-  "3515010000000002": { nama: "Bu Sri Wahyuni", dusun: "Dlopo", urea: 50, npk: 0 }
+  "3515010000000001": { nama: "Pak Sukardi", dusun: "Krajan", urea: 150, npk: 100 },
+  "3515010000000002": { nama: "Bu Sri Wahyuni", dusun: "Sumber", urea: 50, npk: 0 }
 };
 
 const $ = id => document.getElementById(id);
@@ -40,7 +40,7 @@ $("formNik").addEventListener("submit", e => {
   if (!w) { tandai(nik, true); return tampilPesan(msg, "NIK tidak terdaftar. Layanan ini khusus warga desa terdaftar.", false); }
   tandai(nik, false);
   tampilPesan(msg, "NIK terdaftar.", true);
-  box.innerHTML = `<h3>${w.nama}</h3><p>Dusun ${w.dusun} ${$("poktan").value}</p>
+  box.innerHTML = `<h3>${w.nama}</h3><p>Dusun ${w.dusun}, kelompok tani ${$("poktan").value}</p>
     <p>Jatah Urea: <strong>${w.urea} kg</strong></p>
     <p>Jatah NPK: <strong>${w.npk} kg</strong>${w.npk === 0 ? " (kuota habis)" : ""}</p>`;
   box.className = "hasil";
@@ -72,4 +72,23 @@ $("formAlat").addEventListener("submit", e => {
   if (opt.dataset.status !== "Ready") return tampilPesan(msg, `${$("alat").value} sedang dipinjam. Pilih alat berstatus Ready.`, false);
   const hari = Number($("lama").value) || 1;
   tampilPesan(msg, `Pengajuan ${dataWarga[v].nama} untuk ${$("alat").value} selama ${hari} hari (${rupiah(Number(opt.dataset.tarif) * hari)}) sudah diterima. Menunggu konfirmasi .`, true);
+});
+
+
+/* Pratinjau gambar alat pertanian */
+const lightbox = $("lightbox");
+const gambarDiperbesar = $("gambarDiperbesar");
+const keteranganGambar = $("keteranganGambar");
+document.querySelectorAll(".gambar-zoom").forEach(tombol => {
+  tombol.addEventListener("click", () => {
+    const gambar = tombol.querySelector("img");
+    gambarDiperbesar.src = gambar.src;
+    gambarDiperbesar.alt = gambar.alt;
+    keteranganGambar.textContent = tombol.closest("figure").querySelector("figcaption").textContent;
+    lightbox.showModal();
+  });
+});
+$("lightbox").querySelector(".lightbox-tutup").addEventListener("click", () => lightbox.close());
+lightbox.addEventListener("click", e => {
+  if (e.target === lightbox) lightbox.close();
 });

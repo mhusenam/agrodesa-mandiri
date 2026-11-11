@@ -32,7 +32,7 @@ Di desa, pembagian pupuk subsidi dan peminjaman alat pertanian milik desa umumny
 | Tabel alat pertanian | Jenis alat, jumlah unit, tarif per hari, dan status (Ready atau Dipinjam) |
 | Filter alat | Tombol untuk menampilkan hanya alat berstatus Ready |
 | Formulir pinjam alat | Validasi NIK, tanggal, dan status alat, lalu menghitung biaya sewa otomatis |
-| SOP dan panduan | Daftar berurutan (alur sewa) dan daftar poin (syarat pupuk, aturan alat) |
+| Panduan | Daftar berurutan (alur sewa) dan daftar poin (syarat pupuk, aturan alat) |
 | Responsif | Tampilan menyesuaikan layar laptop dan HP |
 
 ---
@@ -44,7 +44,7 @@ Di desa, pembagian pupuk subsidi dan peminjaman alat pertanian milik desa umumny
 | 1 | Tema permasalahan desa | Pupuk subsidi dan peminjaman alat pertanian desa |
 | 2 | Living Standard dan HTML semantik | `<!DOCTYPE html>`, `lang="id"`, `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<figure>`, `<figcaption>`, `<address>`, `<footer>`, serta `<caption>`, `<thead>`, `<tbody>`, `<tfoot>`, `<fieldset>`, `<label>` |
 | 3 | Layout (header, navigasi, main menu, footer) | Header dengan logo dan navigasi tetap di atas (sticky), konten utama di `<main>`, dan `<footer>` berisi kontak serta jam layanan |
-| 4 | Menu navigasi berfungsi | Anchor `#beranda`, `#pupuk`, `#alsintan`, `#sop` dengan smooth scroll dan penanda menu aktif |
+| 4 | Menu navigasi berfungsi | Anchor `#beranda`, `#pupuk`, `#alsintan`, `#panduan` dengan smooth scroll dan penanda menu aktif |
 | 5 | Daftar list | `<ol>` (alur sewa alat) dan `<ul>` (syarat pupuk, aturan combine harvester) |
 | 5 | Multimedia | `<iframe>` video YouTube dan `<img>` (logo, foto alat) |
 | 5 | Tabel | Tabel alokasi pupuk dan tabel ketersediaan alat |

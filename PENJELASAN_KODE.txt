@@ -63,7 +63,7 @@ Tautan **aksesibilitas**. Letaknya disembunyikan di luar layar dan baru muncul s
       <li><a href="#beranda">Beranda</a></li>
       <li><a href="#pupuk">Cek Jatah Pupuk</a></li>
       <li><a href="#alsintan">Sewa Alat</a></li>
-      <li><a href="#sop">SOP &amp; Panduan</a></li>
+      <li><a href="#panduan">Panduan</a></li>
     </ul>
   </nav>
 </header>
@@ -212,7 +212,7 @@ Tiga `<figure>` berisi gambar alat. Class `katalog` membuatnya menjadi grid (dia
 - `type="date"` menampilkan pemilih tanggal bawaan browser.
 - `type="number"` dengan `min="1"` dan `max="7"` membatasi lama pinjam 1 sampai 7 hari. Di sini `number` cocok karena nilainya dihitung.
 
-## A7. Section SOP dan Panduan (soal nomor 5: daftar list)
+## A7. Section Panduan (soal nomor 5: daftar list)
 
 ```html
 <div class="dua-kolom">
@@ -374,7 +374,7 @@ tr[hidden]{display:none}
 
 `border-radius:99px` membuat bentuk kapsul. Warna hijau dan merah membedakan status secara cepat.
 
-## B11. Bagian SOP dan footer
+## B11. Bagian Panduan dan footer
 
 ```css
 .dua-kolom{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
@@ -579,7 +579,7 @@ Pemeriksaan dilakukan **berlapis** dari yang paling dasar. Setiap lapis yang gag
 | 2:30 | Tabel alokasi pupuk | "Tabel semantik: `caption`, `thead`, `tbody`, `tfoot`, dan `scope`." |
 | 3:00 | Sewa alat: klik filter Ready | "Baris disembunyikan JavaScript berdasarkan atribut `data-status`." |
 | 3:30 | Ajukan Traktor Bajak (Dipinjam) lalu Combine | "Alat berstatus Dipinjam ditolak. Alat Ready dihitung biayanya otomatis: tarif × hari." |
-| 4:15 | SOP: list `ol` dan `ul` | "Daftar berurutan untuk alur, daftar poin untuk syarat." |
+| 4:15 | Panduan: list `ol` dan `ul` | "Daftar berurutan untuk alur, daftar poin untuk syarat." |
 | 4:30 | Perkecil jendela browser | "Responsif: grid jadi satu kolom, menu menjadi tombol (media query)." |
 | 5:00 | Buka DevTools lalu Elements | Tunjukkan struktur semantik. |
 
@@ -609,7 +609,7 @@ Mencegah perilaku bawaan formulir (mengirim dan memuat ulang halaman), sehingga 
 Atribut khusus untuk menyimpan data di elemen HTML (`data-status`, `data-tarif`). JavaScript membacanya lewat `dataset`. Dengan cara ini data tidak perlu ditulis ulang di JavaScript.
 
 **8. Apa beda Flexbox dan Grid di proyek ini?**
-Flexbox dipakai untuk susunan **satu dimensi** (header, menu). Grid dipakai untuk susunan **dua dimensi** (hero dua kolom, galeri kartu, SOP dua kolom).
+Flexbox dipakai untuk susunan **satu dimensi** (header, menu). Grid dipakai untuk susunan **dua dimensi** (hero dua kolom, galeri kartu, panduan dua kolom).
 
 **9. Bagaimana website ini dibuat responsif?**
 Tiga cara: `meta viewport`, grid `auto-fill/minmax` yang menyesuaikan jumlah kolom, dan `@media (max-width:760px)` yang mengubah dua kolom menjadi satu serta menu menjadi tombol.

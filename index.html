@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Cek jatah pupuk bersubsidi dan sewa alat pertanian untuk warga desa.">
-  <title>AgroDesa Mandiri | Layanan Pupuk Subsidi &amp; Sewa Alat Pertanian Desa</title>
+  <title>AgroDesa Wonoplintahan | Layanan Pupuk Subsidi &amp; Sewa Alat Pertanian Desa</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,7 +14,7 @@
     <div class="brand">
       <img class="logo" alt="Logo AgroDesa Mandiri" src="media/logo.png">
       <div>
-        <h1>AgroDesa Mandiri</h1>
+        <h1>AgroDesa Wonoplintahan</h1>
         <p>Pupuk subsidi &amp; sewa alat pertanian warga</p>
       </div>
     </div>
@@ -24,7 +24,7 @@
         <li><a href="#beranda">Beranda</a></li>
                 <li><a href="#pupuk">Cek Jatah Pupuk</a></li>
         <li><a href="#alsintan">Sewa Alat</a></li>
-        <li><a href="#sop">SOP &amp; Panduan</a></li>
+        <li><a href="#panduan">Panduan</a></li>
       </ul>
     </nav>
   </header>
@@ -32,11 +32,11 @@
   <main id="utama">
     <section id="beranda" class="hero">
       <div class="hero-text">
-        <h2>Pupuk subsidi dan alat tani, satu pintu untuk warga.</h2>
-        <p>Cek sisa jatah pupuk subsidi Anda dan ajukan peminjaman alat pertanian milik desa tanpa antre di balai desa.</p>
+        <h2>Cek Data Pupuk Subsidi &amp; Penyewaan Alat Pertanian</h2>
+        <p>Periksa informasi jatah pupuk subsidi dan temukan alat pertanian yang bisa disewa warga dengan lebih mudah, praktis, dan tanpa harus antre di balai desa.</p>
         <p>
-        <a class="btn" href="#pupuk">Cek jatah pupuk</a>
-        <a class="btn btn-ghost" href="#alsintan">Sewa alat</a>
+        <a class="btn" href="#pupuk">Cek Data Pupuk</a>
+        <a class="btn btn-ghost" href="#alsintan">Penyewaan Alat</a>
        </p>
       </div>
       <figure class="hero-video">
@@ -59,7 +59,7 @@
         <label for="nik">NIK (16 digit)
           <input type="text" id="nik" name="nik" inputmode="numeric" maxlength="16" required>
         </label>
-        <label for="poktan">Dusun
+        <label for="poktan">Kelompok Tani
           <select id="poktan" name="poktan">
             <option>Wonogiri</option>
             <option>Dlopo</option>
@@ -92,14 +92,15 @@
     </section>
 
     <section id="alsintan">
-      <h2>Sewa Alat &amp; Mesin Pertanian</h2>
-      <p class="lead">Khusus warga desa terdaftar. Tarif masuk ke kas desa.</p>
-      <div class="katalog galeri">
-        <figure class="kartu"><img src="media/combine.png" alt="Ilustrasi combine harvester"><figcaption>Combine </figcaption></figure>
-        <figure class="kartu"><img src="media/traktor.png" alt="Ilustrasi traktor bajak sawah"><figcaption>Traktor bajak sawah</figcaption></figure>
-        <figure class="kartu"><img src="media/pompa.png" alt="Ilustrasi pompa air"><figcaption>Pompa air diesel</figcaption></figure>
+      <div class="section-heading">
+        <h2>Sewa Alat &amp; Mesin Pertanian</h2>
+        <p class="lead">Khusus warga desa terdaftar. Tarif masuk ke kas desa.</p>
       </div>
-      <p><button class="btn btn-ghost" id="filterReady" aria-pressed="false">Tampilkan hanya yang Ready</button></p>
+      <div class="katalog galeri">
+        <figure class="kartu kartu-galeri"><button class="gambar-zoom" type="button" aria-label="Perbesar gambar combine harvester"><img src="media/combine.png" alt="Combine harvester"></button><figcaption>Combine harvester</figcaption></figure>
+        <figure class="kartu kartu-galeri"><button class="gambar-zoom" type="button" aria-label="Perbesar gambar traktor bajak sawah"><img src="media/traktor.png" alt="Traktor bajak sawah"></button><figcaption>Traktor bajak sawah</figcaption></figure>
+        <figure class="kartu kartu-galeri"><button class="gambar-zoom" type="button" aria-label="Perbesar gambar pompa air diesel"><img src="media/pompa.png" alt="Pompa air diesel"></button><figcaption>Pompa air diesel</figcaption></figure>
+      </div>
       <div class="tabel-wrap">
         <table id="tabelAlat">
           <caption>Ketersediaan alat dan mesin pertanian</caption>
@@ -108,10 +109,7 @@
           </thead>
           <tbody>
             <tr data-status="Ready"><th scope="row">Combine Harvester (mesin panen padi)</th><td>1</td><td>Rp750.000</td><td><span class="badge ready">Ready</span></td></tr>
-            <tr data-status="Dipinjam"><th scope="row">Traktor Bajak Sawah Roda 4</th><td>1</td><td>Rp350.000</td><td><span class="badge dipinjam">Dipinjam</span><br><small>Kembali ±2 hari lagi</small></td></tr>
             <tr data-status="Ready"><th scope="row">Traktor Tangan (Hand Tractor)</th><td>3</td><td>Rp150.000</td><td><span class="badge ready">Ready</span></td></tr>
-            <tr data-status="Ready"><th scope="row">Mesin Perontok Padi (Power Thresher)</th><td>2</td><td>Rp100.000</td><td><span class="badge ready">Ready</span></td></tr>
-            <tr data-status="Dipinjam"><th scope="row">Rice Transplanter (mesin tanam padi)</th><td>1</td><td>Rp300.000</td><td><span class="badge dipinjam">Dipinjam</span><br><small>Kembali ±4 hari lagi</small></td></tr>
             <tr data-status="Ready"><th scope="row">Pompa Air Diesel 3 Inch</th><td>2</td><td>Rp75.000</td><td><span class="badge ready">Ready</span></td></tr>
           </tbody>
         </table>
@@ -125,10 +123,7 @@
         <label for="alat">Alat yang dipinjam
           <select id="alat" required>
             <option value="Combine Harvester (mesin panen padi)" data-status="Ready" data-tarif="750000">Combine Harvester (mesin panen padi) (Ready)</option>
-            <option value="Traktor Bajak Sawah Roda 4" data-status="Dipinjam" data-tarif="350000">Traktor Bajak Sawah Roda 4 (Dipinjam)</option>
             <option value="Traktor Tangan (Hand Tractor)" data-status="Ready" data-tarif="150000">Traktor Tangan (Hand Tractor) (Ready)</option>
-            <option value="Mesin Perontok Padi (Power Thresher)" data-status="Ready" data-tarif="100000">Mesin Perontok Padi (Power Thresher) (Ready)</option>
-            <option value="Rice Transplanter (mesin tanam padi)" data-status="Dipinjam" data-tarif="300000">Rice Transplanter (mesin tanam padi) (Dipinjam)</option>
             <option value="Pompa Air Diesel 3 Inch" data-status="Ready" data-tarif="75000">Pompa Air Diesel 3 Inch (Ready)</option>
           </select>
         </label>
@@ -143,31 +138,39 @@
       </form>
     </section>
 
-    <section id="sop">
-      <h2>SOP &amp; Panduan</h2>
-      <div class="dua-kolom">
-        <article>
-          <h3>Alur pengajuan sewa alat</h3>
+    <section id="panduan">
+      <div class="section-heading">
+        <p class="lead">Ikuti panduan berikut agar layanan berjalan tertib dan lancar.</p>
+      </div>
+      <div class="panduan-grid">
+        <article class="panduan-card">
+          <span class="panduan-nomor">01</span>
+          <h3>Alur Pengajuan Sewa Alat</h3>
           <ol>
             <li>Cek status alat pada tabel ketersediaan.</li>
-            <li>Isi formulir pengajuan dengan NIK dan tanggal pinjam.</li>
+            <li>Isi formulir dengan NIK dan tanggal pinjam.</li>
             <li>Tunggu konfirmasi dari pengurus Gapoktan.</li>
-            <li>Bayar tarif sewa ke kas desa saat mengambil alat.</li>
+            <li>Bayar tarif sewa saat mengambil alat.</li>
             <li>Kembalikan alat tepat waktu dalam keadaan bersih.</li>
           </ol>
         </article>
-        <article>
-          <h3>Syarat pengambilan pupuk subsidi</h3>
+        <article class="panduan-card">
+          <span class="panduan-nomor">02</span>
+          <h3>Syarat Pengambilan Pupuk Subsidi</h3>
           <ul>
-            <li>KTP asli yang terdaftar di desa.</li>
-            <li>Surat keterangan dari kelompok tani.</li>
-            <li>Mengambil di balai tani pada jam layanan.</li>
-            <li>Jumlah sesuai kuota yang tertera pada cek jatah.</li>
+            <li>Membawa KTP asli yang terdaftar di desa.</li>
+            <li>Membawa surat keterangan dari kelompok tani.</li>
+            <li>Mengambil pupuk di balai tani pada jam layanan.</li>
+            <li>Jumlah pupuk sesuai kuota pada halaman cek jatah.</li>
           </ul>
-          <h3>Aturan pemakaian combine harvester</h3>
+        </article>
+        <article class="panduan-card">
+          <span class="panduan-nomor">03</span>
+          <h3>Aturan Pemakaian Combine Harvester</h3>
           <ul>
-            <li>Maksimal pemakaian 3 hari per pengajuan.</li>
-            <li>Biaya BBM dan operator ditanggung peminjam.</li>
+            <li>Maksimal pemakaian 3 hari untuk setiap pengajuan.</li>
+            <li>Biaya BBM dan operator menjadi tanggung jawab peminjam.</li>
+            <li>Alat dikembalikan tepat waktu dan dalam kondisi bersih.</li>
           </ul>
         </article>
       </div>
@@ -176,14 +179,19 @@
 
   <footer class="site-footer">
     <address>
-      <strong>Balai Desa &amp;  AgroDesa Mandiri</strong><br>
-      Jl. Raya Desa No. 1, Kecamatan Pacet, Jawa Timur<br>
+      <strong>Balai Desa  Wonoplintahan</strong><br>
+      Jl. Persatuan III, Kecamatan Prambon, Jawa Timur<br>
       Telepon: <a href="tel:+628271281271">08271281271</a>
     </address>
     <p>Jam layanan: Senin–Jumat 08.00–15.00 WIB, Sabtu 08.00–12.00 WIB</p>
-    <p><small>&copy; 2026 AgroDesa Mandiri.</small></p>
+    <p><small>&copy; 2026 AgroDesa Wonoplintahani.</small></p>
   </footer>
 
+  <dialog class="lightbox" id="lightbox" aria-label="Pratinjau gambar alat">
+    <button class="lightbox-tutup" type="button" aria-label="Tutup gambar">&times;</button>
+    <img id="gambarDiperbesar" src="" alt="">
+    <p id="keteranganGambar"></p>
+  </dialog>
   <script src="script.js"></script>
 </body>
 </html>
